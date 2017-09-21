@@ -21,10 +21,11 @@ debug : LDFLAGS := -fsanitize=address
 debug : ARCH :=
 debug : $(EXEC)
 
-all : shuffle
+all : shuffle testppid
 
-problem1 : shuffle.c
+problem1 : shuffle.c testppid.c
 	gcc $(CCSTD) -o3 shuffle.c -o shuffle.exe
+	gcc $(CCSTD) -o3 testppid.c -o testppid.exe
 
 
 # TODO: add targets for building executables
