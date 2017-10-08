@@ -6,10 +6,14 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <fcntl.h>
+#include <signal.h>
 
 //global list of jobs running at background
 int jlist[20];
 int pos;//position in the jlist, pointing to aviable slot
+
+char error_message[30] = "An error has occurred\n";
+
 
 int checkjob()
 {
@@ -28,6 +32,21 @@ int checkjob()
 	}
 	return 1;
 }
+
+int killjobs()
+{
+	for(int k=0; k< pos; k++)
+	{
+		if(waitpid(jlist[k],NULL,WNOHANG) != 0)
+		{
+			kill(jlist[k],0);
+		}
+	}
+	return 1;
+}
+
+
+
 
 char **parse(char *cmd)
 {	
@@ -199,7 +218,8 @@ int execute(char **args)
 		    close(pipeA[0]);
 	      	dup2(pipeA[1], STDOUT_FILENO);
 	      	execvp(cmd1[0], cmd1);
-		return 2;
+			write(STDERR_FILENO, error_message, strlen(error_message));
+			exit(0);
 	    }
 	  	else
 	    {
@@ -212,7 +232,8 @@ int execute(char **args)
 	    		close(pipeA[1]);
 	    		dup2(pipeA[0], STDIN_FILENO);
 				execvp(cmd2[0], cmd2);
-				return 2;
+				write(STDERR_FILENO, error_message, strlen(error_message));
+				exit(0);
 	    	}
 	    	else
 	    	{
@@ -245,7 +266,8 @@ int execute(char **args)
 			}
 			// sleep(10);
 			execvp(args[0], args);
-			return 2;//when successful, never return
+			write(STDERR_FILENO, error_message, strlen(error_message));
+			exit(0);//when successful, never return
 		}
 		else if(pid >0)
 		{
@@ -350,16 +372,25 @@ int main(int argc, char *argv[])
 		//this one finished, increment sid, go to next one
 		if(run == 2)
 		{
-		  write(STDERR_FILENO, error_message, strlen(error_message));
-		  sid ++;
+		 	write(STDERR_FILENO, error_message, strlen(error_message));
+		 	// printf("An error has occurred\n");
+		  	sid ++;
+		  	// nextcmd = 1;
 		}
 		else if(run == 4)
 		{
-		  exit(0);
+			run = 0;
+			// printf("exit here1\n");
+			// printf("exit here2\n");
+			killjobs();
+		  	exit(0);
+		  	// break;
+		  	// printf("exit here2\n");
 		}
 		else if(run)
 		{
-		  sid ++;
+		  	sid ++;
+		  	// nextcmd = 1;
 		}
 	}
 
