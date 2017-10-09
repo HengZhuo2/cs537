@@ -361,15 +361,11 @@ int main(int argc, char *argv[])
 
 		fgets(cmd,128,stdin);
 
-		while ((c = cmd[cpos]) != '\n' && c != EOF && (!toolong)) 
+		while (  ((c = cmd[cpos]) != '\n') && (c != EOF) && (!toolong)) 
 		{
 			// printf("c is now%d\n", c);
-			if(cpos >= 128)
+			if(cpos > 128)
 			{
-				while( (h = getchar()) != '\n' && c != EOF)
-				{
-					//flush all stdin
-				}
 				write(STDERR_FILENO, error_message, strlen(error_message));
 				toolong = 1;
 				break;
@@ -381,19 +377,14 @@ int main(int argc, char *argv[])
 
 		if(toolong)
 		{
+			while( (h = getchar()) != '\n' && c != EOF)
+				{
+					//flush all stdin
+				}
 			sid ++;
 			continue;
 		}
 
-
-		// if(cpos >= 1024)
-		// {
-		// 	write(STDERR_FILENO, error_message, strlen(error_message));
-		// 	sid++;
-		// 	continue;
-		// }
-
-		// cmd[pos] = "\n";
 
 		if( strcmp(cmd,"\n") == 0)
 		{
