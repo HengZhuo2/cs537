@@ -368,12 +368,15 @@ int main(int argc, char *argv[])
 			cpos++;
 		}
 
+
 		if(cpos >= 1024)
 		{
 			write(STDERR_FILENO, error_message, strlen(error_message));
 			sid++;
 			continue;
 		}
+
+		cmd[pos] = "\n";
 
 		// fgets(cmd,1024,stdin);
 
