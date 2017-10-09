@@ -356,18 +356,25 @@ int main(int argc, char *argv[])
 		//waiting for command
 		printf("mysh (%d)> ", sid);
 
-		// int cpos = 0;
+		int cpos = 0;
+		int toolong = 0;
 
-		// while ((c = getchar()) != '\n' && c != EOF) 
-		// {
-		// 	if(cpos >= 1024)
-		// 	{
-		// 		write(STDERR_FILENO, error_message, strlen(error_message));
-		// 		continue;
-		// 	}
-		// 	cmd[cpos] = c;
-		// 	cpos++;
-		// }
+		while ((c = cmd[cpos]) != '\n' && c != EOF) 
+		{
+			if(cpos >= 1024)
+			{
+				write(STDERR_FILENO, error_message, strlen(error_message));
+				toolong = 1;
+				break;
+			}
+			cpos++;
+		}
+
+		if(toolong)
+		{
+			sid++;
+			continue;
+		}
 
 
 		// if(cpos >= 1024)
