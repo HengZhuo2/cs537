@@ -359,13 +359,12 @@ int main(int argc, char *argv[])
 		int cpos = 0;
 		int toolong = 0;
 
-		while ((c = cmd[cpos]) != '\n' && c != EOF) 
+		while ((c = cmd[cpos]) != '\n' && c != EOF && (!toolong)) 
 		{
 			if(cpos >= 1024)
 			{
 				write(STDERR_FILENO, error_message, strlen(error_message));
 				toolong = 1;
-				break;
 			}
 			cpos++;
 		}
