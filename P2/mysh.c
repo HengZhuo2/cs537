@@ -363,7 +363,7 @@ int main(int argc, char *argv[])
 
 		while ((c = cmd[cpos]) != '\n' && c != EOF && (!toolong)) 
 		{
-			printf("c is now%d\n", c);
+			// printf("c is now%d\n", c);
 			if(cpos >= 128)
 			{
 				write(STDERR_FILENO, error_message, strlen(error_message));
