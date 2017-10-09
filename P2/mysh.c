@@ -10,19 +10,19 @@
 
 //global list of jobs running at background
 int jlist[20];
-int pos;//position in the jlist, pointing to aviable slot
+int jpos;//position in the jlist, pointing to aviable slot
 
 char error_message[30] = "An error has occurred\n";
 
 
 int checkjob()
 {
-	for(int k=0; k< pos; k++)
+	for(int k=0; k< jpos; k++)
 	{
 		if(waitpid(jlist[k],NULL,WNOHANG) != 0)
 		{
 			//this process finished, clear the pos
-			for(int p=k; p< pos-1; p++)
+			for(int p=k; p< jpos-1; p++)
 			{
 				//move all jobs forward
 				jlist[p] = jlist[p+1]; 
@@ -34,13 +34,16 @@ int checkjob()
 }
 
 int killjobs()
-{
-	for(int k=0; k< pos; k++)
+{	
+	printf("here\n");
+	for(int k=0; k< jpos; k++)
 	{
+		printf("pid is %d\n", jlist[k]);
 		if(waitpid(jlist[k],NULL,WNOHANG) != 0)
 		{
-			kill(jlist[k],0);
+			kill(jlist[k],SIGKILL);
 		}
+		// printf("pid killed? 0 is sucessful %d\n", kill(jlist[k],SIGKILL));
 	}
 	return 1;
 }
@@ -365,7 +368,8 @@ int execute(char **args)
 			else
 			{
 				//dont wait, but need to keep track of childs
-				jlist[pos] = pid;
+				jlist[jpos] = pid;
+				jpos++;
 			}
 			// printf("im a parent\n");
 		}
@@ -431,7 +435,7 @@ int main(int argc, char *argv[])
 
 	int run = 1;
 	int sid = 1;
-	pos = 0;
+	// pos = 0;
 
 	char *cmd = (char*) malloc(130*sizeof(char));
 	char **args;
@@ -506,7 +510,7 @@ int main(int argc, char *argv[])
 		{
 			run = 0;
 			// printf("exit here1\n");
-			// printf("exit here2\n");
+			printf("exit here2\n");
 			killjobs();
 		  	exit(0);
 		  	// break;
