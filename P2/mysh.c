@@ -331,8 +331,8 @@ int execute(char **args)
 					waitpid(pid2,&status,WUNTRACED);
 				}while(!WIFEXITED(status) && !WIFSIGNALED(status));
 
-				// free(cmd1);
-				// free(cmd2);
+				free(cmd1);
+				free(cmd2);
 	    	}
 	    }
 	}
