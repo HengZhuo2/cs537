@@ -312,7 +312,7 @@ int execute(char **args)
 			{
 				dup2(out, 1);
 			}
-			printf("entered here\n");
+			// printf("entered here\n");
 			execvp(args[0], args);
 			write(STDERR_FILENO, error_message, strlen(error_message));
 			exit(0);//when successful, never return
