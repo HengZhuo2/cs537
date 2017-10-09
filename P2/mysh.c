@@ -207,7 +207,7 @@ int execute(char **args)
 		int pid = 0;
 		//check pipe creation sucessful
 		if (pipe(pipeA) == -1) {
-       	 	printf("An error has occurred\n");
+       	 	write(STDERR_FILENO, error_message, strlen(error_message));
         	exit(EXIT_FAILURE);
     	}
     	fflush(stdout);
@@ -387,20 +387,27 @@ int main(int argc, char *argv[])
 		}
 
 
-		if( strcmp(cmd,"\n") == 0)
-		{
-			// printf("nothing happened\n");
-			continue;
-		}
+		// if( strcmp(cmd,"\n") == 0)
+		// {
+		// 	// printf("nothing happened\n");
+		// 	continue;
+		// }
 
 		// printf("cmd is %s", cmd);
 		//parse command
 		args = parse(cmd);
+
+		if(args[0] == NULL)
+		{
+			continue;
+		}
+
 		//check jobs list
 		checkjob();
 		//launch cmd(s)
 		run = launch(args);
-		//printf("run is: %d", run);
+
+		printf("run is: %d\n", run);
 		//this one finished, increment sid, go to next one
 		if(run == 2)
 		{
@@ -412,7 +419,7 @@ int main(int argc, char *argv[])
 		else if(run == 4)
 		{
 			run = 0;
-			// printf("exit here1\n");
+			printf("exit here1\n");
 			// printf("exit here2\n");
 			killjobs();
 		  	exit(0);
