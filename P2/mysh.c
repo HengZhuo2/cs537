@@ -119,14 +119,14 @@ int mysh_cd(char **args)
 		//change dir to home
 		if(chdir(getenv("HOME")) != 0)
 		{
-			printf("An error has occurred\n");
+			write(STDERR_FILENO, error_message, strlen(error_message));
 		}
 	}
 	else
 	{
 		if(chdir(args[1]) != 0)
 		{
-			printf("An error has occurred\n");
+			write(STDERR_FILENO, error_message, strlen(error_message));
 		}
 	}
 	return 1;
@@ -136,7 +136,7 @@ int mysh_pwd(char **args)
 {
 	if(args[1] != NULL)
 	{
-		fprintf(stderr, "An error has occurred\n");
+		write(STDERR_FILENO, error_message, strlen(error_message));
 	}
 	else
 	{
@@ -291,7 +291,7 @@ int execute(char **args)
 		}
 		else
 		{
-			printf("An error has occurred\n");
+			write(STDERR_FILENO, error_message, strlen(error_message));
 		}
 
 
@@ -348,7 +348,7 @@ int main(int argc, char *argv[])
 
 	char *cmd = (char*) malloc(130*sizeof(char));
 	char **args;
-	char error_message[30] = "An error has occurred\n";
+	// char error_message[30] = "An error has occurred\n";
 	char c, h;
 	
 	while(run)
