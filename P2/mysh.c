@@ -355,6 +355,14 @@ int main(int argc, char *argv[])
 		//waiting for command
 		printf("mysh (%d)> ", sid);
 		fgets(cmd,1024,stdin);
+		if(&cmd[1024]!=NULL &&cmd[1024]!='\n')
+		{
+			write(STDERR_FILENO, error_message, strlen(error_message));
+			sid++;
+			continue;
+		}
+
+
 		if( strcmp(cmd,"\n") == 0)
 		{
 			// printf("nothing happened\n");
