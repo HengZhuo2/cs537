@@ -45,7 +45,34 @@ int killjobs()
 	return 1;
 }
 
+// int cmd_check(char** args)
+// {
+// 	for(int i = 1; args[i] != NULL; i++)
+// 	{
+// 		printf("args: %s\n", args[]);
+// 		if(strcmp(args[i],"|" ) == 0)
+// 		{
+// 			printf("|\n");
+// 			return 1;
+// 		}
+// 		if(strcmp(args[i],"<" ) == 0)
+// 		{
+// 			return 1;
+// 		}
+// 		if(strcmp(args[i],">") == 0)
+// 		{
+// 			return 1;
+// 		}
+// 		if(strcmp(args[i],"&") == 0)
+// 		{
+// 			printf("&\n");
+// 			return 1;
+// 		}
+// 	}
 
+// 	return 0;
+
+// }
 
 
 char **parse(char *cmd)
@@ -197,6 +224,10 @@ int execute(char **args)
 			cmd1 = (char **) malloc(5*sizeof(char*));
 			cmd2 = (char **) malloc(5*sizeof(char*));
 
+			if(args[i+1] ==NULL)
+			{
+				return 2;
+			}
 			args[i] = NULL; 
 			cmd1 = args;
 			cmd2 = &args[i+1];
@@ -371,8 +402,14 @@ int launch(char **args)
 	{
 		if(strcmp(args[0], buildin_str[i]) == 0)
 		{
-		  
-			return(*buildin[i])(args);
+		  	// if(cmd_check(args) != 0)
+		  	// {
+		  	// 	return 2;
+		  	// }
+		  	// else
+		  	// {
+		  		return(*buildin[i])(args);
+		  	// }
 		}
 	}
 
