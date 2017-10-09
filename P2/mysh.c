@@ -346,24 +346,36 @@ int main(int argc, char *argv[])
 	int sid = 1;
 	pos = 0;
 
-	char *cmd = (char*) malloc(1024);
+	char *cmd = (char*) malloc(1024*sizeof(char));
 	char **args;
 	char error_message[30] = "An error has occurred\n";
+	char c;
 	
 	while(run)
 	{
 		//waiting for command
 		printf("mysh (%d)> ", sid);
-		cmd[1024] = NULL;
-		fgets(cmd,1024,stdin);
+		int cpos = 0;
 
-		if(&cmd[1024]!=NULL &&cmd[1024]!='\n')
+		while ((c = getchar()) != '\n' && c != EOF) 
+		{
+			if(cpos >= 1024)
+			{
+				write(STDERR_FILENO, error_message, strlen(error_message));
+				continue;
+			}
+			cmd[cpos] = c;
+			cpos++;
+		}
+
+		if(cpos >= 1024)
 		{
 			write(STDERR_FILENO, error_message, strlen(error_message));
 			sid++;
 			continue;
 		}
 
+		// fgets(cmd,1024,stdin);
 
 		if( strcmp(cmd,"\n") == 0)
 		{
