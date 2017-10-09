@@ -480,7 +480,7 @@ int main(int argc, char *argv[])
 
 		if(args[0] == NULL)
 		{
-			// free(args);
+			free(args);
 			continue;
 		}
 
@@ -503,8 +503,8 @@ int main(int argc, char *argv[])
 			run = 0;
 			// printf("exit here1\n");
 			killjobs();
-			// free(cmd);
-			// free(args);
+			free(cmd);
+			free(args);
 		  	exit(0);
 		  	// break;
 		  	// printf("exit here2\n");
@@ -514,12 +514,12 @@ int main(int argc, char *argv[])
 		  	sid ++;
 		  	// nextcmd = 1;
 		}
-		// free(args);
+		free(args);
 	}
 
 	//exit cmd called
 	//check all process donef
-	free(args);
+	// free(args);
 	free(cmd);
 	return 0;
 }
