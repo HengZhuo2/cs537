@@ -359,6 +359,8 @@ int main(int argc, char *argv[])
 		int cpos = 0;
 		int toolong = 0;
 
+		fgets(cmd,1024,stdin);
+
 		while ((c = cmd[cpos]) != '\n' && c != EOF && (!toolong)) 
 		{
 			if(cpos >= 1024)
@@ -384,8 +386,6 @@ int main(int argc, char *argv[])
 		// }
 
 		// cmd[pos] = "\n";
-
-		fgets(cmd,1024,stdin);
 
 		if( strcmp(cmd,"\n") == 0)
 		{
