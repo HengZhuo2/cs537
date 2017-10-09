@@ -354,7 +354,9 @@ int main(int argc, char *argv[])
 	{
 		//waiting for command
 		printf("mysh (%d)> ", sid);
+		cmd[1024] = NULL;
 		fgets(cmd,1024,stdin);
+
 		if(&cmd[1024]!=NULL &&cmd[1024]!='\n')
 		{
 			write(STDERR_FILENO, error_message, strlen(error_message));
