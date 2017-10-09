@@ -226,8 +226,9 @@ int execute(char **args)
 			}
 		}
 
-		if( (args[inpos+1] != NULL) || (args[outpos+1] != NULL))
+		if( (args[inpos+1] == NULL) || (args[outpos+1] == NULL))
 		{
+			// printf("here\n");
 			return 2;
 		}
 	}
