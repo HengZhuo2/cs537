@@ -338,6 +338,7 @@ int main(int argc, char *argv[])
 	if(argc != 1)
 	{
 		//wrong
+		write(STDERR_FILENO, error_message, strlen(error_message));
 		exit(1);
 	}
 	//else, args correct
