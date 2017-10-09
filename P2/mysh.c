@@ -346,7 +346,7 @@ int main(int argc, char *argv[])
 	int sid = 1;
 	pos = 0;
 
-	char *cmd = (char*) malloc(128*sizeof(char));
+	char *cmd = (char*) malloc(130*sizeof(char));
 	char **args;
 	char error_message[30] = "An error has occurred\n";
 	char c, h;
@@ -359,7 +359,7 @@ int main(int argc, char *argv[])
 		int cpos = 0;
 		int toolong = 0;
 
-		fgets(cmd,128,stdin);
+		fgets(cmd,130,stdin);
 
 		while (  ((c = cmd[cpos]) != '\n') && (c != EOF) && (!toolong)) 
 		{
