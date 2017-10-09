@@ -165,6 +165,8 @@ int execute(char **args)
 	int backflag = 0;
 	char **cmd1;
 	char **cmd2;
+	int inpos = 0;
+	int outpos = 0;
 
 	for(int i = 0; args[i] != NULL; i++)
 	{
@@ -173,12 +175,14 @@ int execute(char **args)
 			redicin = 1;
 			in = open(args[i+1],O_RDONLY);
 			args[i] = NULL;
+			inpos = i;
 		}
 		else if(strcmp(args[i],">" ) == 0)
 		{
 			redicout = 1;
 			out = open(args[i+1], O_WRONLY | O_TRUNC | O_CREAT,S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
 			args[i] = NULL;
+			outpos = i;
 		}
 		else if(strcmp(args[i], "|") == 0)
 		{
@@ -195,6 +199,39 @@ int execute(char **args)
 		{
 			backflag = 1;
 			args[i] = NULL;
+		}
+	}
+
+	//check input file numbers of redirection
+	if(redicout && redicin)
+	{
+		if(inpos > outpos)
+		{
+			if(args[inpos+2] != NULL)
+			{
+				return 2; 
+			}
+		}
+		else
+		{
+			if(args[outpos+2] != NULL)
+			{
+				return 2; 
+			}
+		}
+	}
+	else if(redicout)
+	{
+		if(args[outpos+2] != NULL)
+		{
+			return 2; 
+		}
+	}
+	else if(redicin)
+	{
+		if(args[inpos+2] != NULL)
+		{
+			return 2; 
 		}
 	}
 
