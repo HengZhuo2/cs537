@@ -120,7 +120,7 @@ char **parse(char *cmd)
 	}
 
 	tokens[pos] = NULL;//last arg should be NULL
-	free(tokens);
+	// free(tokens);
 	return tokens;
 }
 
