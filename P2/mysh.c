@@ -14,6 +14,13 @@ int jpos;//position in the jlist, pointing to aviable slot
 
 char error_message[30] = "An error has occurred\n";
 
+char **cmd1;
+char **cmd2;
+
+cmd1 = (char **) malloc(5*sizeof(char*));
+cmd2 = (char **) malloc(5*sizeof(char*));
+char **tokens = malloc(size * sizeof(char*));
+
 
 int checkjob()
 {
@@ -81,7 +88,6 @@ int killjobs()
 char **parse(char *cmd)
 {	
 	int size = 128;
-	char **tokens = malloc(size * sizeof(char*));
 	char *token;
 	char *svptr;
 
@@ -194,8 +200,6 @@ int execute(char **args)
 	int redicout = 0;
 	int pipeflag = 0;
 	int backflag = 0;
-	char **cmd1;
-	char **cmd2;
 	int inpos = 0;
 	int outpos = 0;
 
@@ -224,9 +228,6 @@ int execute(char **args)
 		else if(strcmp(args[i], "|") == 0)
 		{
 			pipeflag = 1;
-
-			cmd1 = (char **) malloc(5*sizeof(char*));
-			cmd2 = (char **) malloc(5*sizeof(char*));
 
 			if(args[i+1] ==NULL)
 			{
@@ -328,8 +329,6 @@ int execute(char **args)
 				{
 					waitpid(pid,&status,WUNTRACED);
 					waitpid(pid2,&status,WUNTRACED);
-					free(cmd1);
-					free(cmd2);
 				}while(!WIFEXITED(status) && !WIFSIGNALED(status));
 	    	}
 	    }
@@ -529,7 +528,9 @@ int main(int argc, char *argv[])
 	//exit cmd called
 	//check all process done
 	free(args);
-	// free(tokens);
+	free(tokens);
+	free(cmd1);
+	free(cmd2);
 	free(cmd);
 	return 0;
 }
