@@ -173,14 +173,20 @@ int execute(char **args)
 		if(strcmp(args[i],"<" ) == 0)
 		{
 			redicin = 1;
-			in = open(args[i+1],O_RDONLY);
+			if( (in = open(args[i+1],O_RDONLY)) == -1)
+			{
+				return 2;
+			}
 			args[i] = NULL;
 			inpos = i;
 		}
 		else if(strcmp(args[i],">" ) == 0)
 		{
 			redicout = 1;
-			out = open(args[i+1], O_WRONLY | O_TRUNC | O_CREAT,S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+			if( (out = open(args[i+1], O_WRONLY | O_TRUNC | O_CREAT,S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR)) == -1)
+			{
+				return 2;
+			}
 			args[i] = NULL;
 			outpos = i;
 		}
@@ -306,7 +312,7 @@ int execute(char **args)
 			{
 				dup2(out, 1);
 			}
-			// sleep(10);
+			printf("entered here\n");
 			execvp(args[0], args);
 			write(STDERR_FILENO, error_message, strlen(error_message));
 			exit(0);//when successful, never return
