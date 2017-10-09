@@ -355,30 +355,31 @@ int main(int argc, char *argv[])
 	{
 		//waiting for command
 		printf("mysh (%d)> ", sid);
-		int cpos = 0;
 
-		while ((c = getchar()) != '\n' && c != EOF) 
-		{
-			if(cpos >= 1024)
-			{
-				write(STDERR_FILENO, error_message, strlen(error_message));
-				continue;
-			}
-			cmd[cpos] = c;
-			cpos++;
-		}
+		// int cpos = 0;
+
+		// while ((c = getchar()) != '\n' && c != EOF) 
+		// {
+		// 	if(cpos >= 1024)
+		// 	{
+		// 		write(STDERR_FILENO, error_message, strlen(error_message));
+		// 		continue;
+		// 	}
+		// 	cmd[cpos] = c;
+		// 	cpos++;
+		// }
 
 
-		if(cpos >= 1024)
-		{
-			write(STDERR_FILENO, error_message, strlen(error_message));
-			sid++;
-			continue;
-		}
+		// if(cpos >= 1024)
+		// {
+		// 	write(STDERR_FILENO, error_message, strlen(error_message));
+		// 	sid++;
+		// 	continue;
+		// }
 
-		cmd[pos] = "\n";
+		// cmd[pos] = "\n";
 
-		// fgets(cmd,1024,stdin);
+		fgets(cmd,1024,stdin);
 
 		if( strcmp(cmd,"\n") == 0)
 		{
