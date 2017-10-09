@@ -500,6 +500,7 @@ int main(int argc, char *argv[])
 			run = 0;
 			// printf("exit here1\n");
 			killjobs();
+			free(cmd);
 		  	exit(0);
 		  	// break;
 		  	// printf("exit here2\n");
