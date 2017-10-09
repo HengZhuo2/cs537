@@ -224,8 +224,8 @@ int execute(char **args)
 		{
 			pipeflag = 1;
 
-			cmd1 = (char **) malloc(5*sizeof(char*));
-			cmd2 = (char **) malloc(5*sizeof(char*));
+			cmd1 = (char **) malloc(i*sizeof(char*));
+			cmd2 = (char **) malloc((sizeof(args)-i)*sizeof(char*));
 
 			if(args[i+1] ==NULL)
 			{
@@ -292,7 +292,7 @@ int execute(char **args)
 		if (pipe(pipeA) == -1) {
        	 	write(STDERR_FILENO, error_message, strlen(error_message));
        	 	free(cmd1);
-			free(cmd2);
+       	 	free(cmd2);
         	exit(EXIT_FAILURE);
     	}
     	fflush(stdout);
@@ -304,8 +304,6 @@ int execute(char **args)
 	      	dup2(pipeA[1], STDOUT_FILENO);
 	      	execvp(cmd1[0], cmd1);
 			write(STDERR_FILENO, error_message, strlen(error_message));
-			free(cmd1);
-			free(cmd2);
 			exit(0);
 	    }
 	  	else
@@ -320,8 +318,6 @@ int execute(char **args)
 	    		dup2(pipeA[0], STDIN_FILENO);
 				execvp(cmd2[0], cmd2);
 				write(STDERR_FILENO, error_message, strlen(error_message));
-				free(cmd1);
-				free(cmd2);
 				exit(0);
 	    	}
 	    	else
