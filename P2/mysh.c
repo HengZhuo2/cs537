@@ -419,7 +419,7 @@ int main(int argc, char *argv[])
 		else if(run == 4)
 		{
 			run = 0;
-			printf("exit here1\n");
+			// printf("exit here1\n");
 			// printf("exit here2\n");
 			killjobs();
 		  	exit(0);
