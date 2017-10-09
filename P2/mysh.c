@@ -503,6 +503,7 @@ int main(int argc, char *argv[])
 			// printf("exit here1\n");
 			killjobs();
 			free(cmd);
+			free(args);
 		  	exit(0);
 		  	// break;
 		  	// printf("exit here2\n");
