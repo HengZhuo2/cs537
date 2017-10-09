@@ -114,6 +114,7 @@ char **parse(char *cmd)
 	}
 
 	tokens[pos] = NULL;//last arg should be NULL
+	free(tokens);
 	return tokens;
 }
 
@@ -327,6 +328,8 @@ int execute(char **args)
 				{
 					waitpid(pid,&status,WUNTRACED);
 					waitpid(pid2,&status,WUNTRACED);
+					free(cmd1);
+					free(cmd2);
 				}while(!WIFEXITED(status) && !WIFSIGNALED(status));
 	    	}
 	    }
@@ -526,9 +529,7 @@ int main(int argc, char *argv[])
 	//exit cmd called
 	//check all process done
 	free(args);
-	free(tokens);
+	// free(tokens);
 	free(cmd);
-	free(cmd1);
-	free(cmd2);
 	return 0;
 }
