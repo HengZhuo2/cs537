@@ -173,7 +173,7 @@ int execute(char **args)
 		if(strcmp(args[i],"<" ) == 0)
 		{
 			redicin = 1;
-			if( (in = open(args[i+1],O_RDONLY)) == -1)
+			if( (in = open(args[i+1],O_RDONLY | O_CREAT)) == -1)
 			{
 				return 2;
 			}
