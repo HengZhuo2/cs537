@@ -407,7 +407,7 @@ int main(int argc, char *argv[])
 		//launch cmd(s)
 		run = launch(args);
 
-		printf("run is: %d\n", run);
+		// printf("run is: %d\n", run);
 		//this one finished, increment sid, go to next one
 		if(run == 2)
 		{
