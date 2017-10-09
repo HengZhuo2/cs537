@@ -526,6 +526,9 @@ int main(int argc, char *argv[])
 	//exit cmd called
 	//check all process done
 	free(args);
+	free(tokens);
 	free(cmd);
+	free(cmd1);
+	free(cmd2);
 	return 0;
 }
