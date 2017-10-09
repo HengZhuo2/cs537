@@ -39,10 +39,10 @@ int killjobs()
 	for(int k=0; k< jpos; k++)
 	{
 		printf("pid is %d\n", jlist[k]);
-		if(waitpid(jlist[k],NULL,WNOHANG) != 0)
-		{
+		// if(waitpid(jlist[k],NULL,WNOHANG) != 0)
+		// {
 			kill(jlist[k],SIGKILL);
-		}
+		// }
 		// printf("pid killed? 0 is sucessful %d\n", kill(jlist[k],SIGKILL));
 	}
 	return 1;
