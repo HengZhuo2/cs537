@@ -224,8 +224,8 @@ int execute(char **args)
 		{
 			pipeflag = 1;
 
-			cmd1 = (char **) malloc(sizeof(args)*sizeof(char*));
-			cmd2 = (char **) malloc(sizeof(args)*sizeof(char*));
+			cmd1 = (char **) malloc(20*sizeof(char*));
+			cmd2 = (char **) malloc(20*sizeof(char*));
 
 			if(args[i+1] ==NULL)
 			{
