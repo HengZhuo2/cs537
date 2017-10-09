@@ -35,10 +35,10 @@ int checkjob()
 
 int killjobs()
 {	
-	printf("here\n");
+	// printf("here\n");
 	for(int k=0; k< jpos; k++)
 	{
-		printf("pid is %d\n", jlist[k]);
+		// printf("pid is %d\n", jlist[k]);
 		// if(waitpid(jlist[k],NULL,WNOHANG) != 0)
 		// {
 			kill(jlist[k],SIGKILL);
@@ -510,7 +510,7 @@ int main(int argc, char *argv[])
 		{
 			run = 0;
 			// printf("exit here1\n");
-			printf("exit here2\n");
+			// printf("exit here2\n");
 			killjobs();
 		  	exit(0);
 		  	// break;
