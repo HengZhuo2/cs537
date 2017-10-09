@@ -227,14 +227,14 @@ int execute(char **args)
 	}
 	else if(redicout)
 	{
-		if( (args[outpos+2] != NULL) && (args[outpos+1] == NULL))
+		if( (args[outpos+2] != NULL) || (args[outpos+1] == NULL))
 		{
 			return 2; 
 		}
 	}
 	else if(redicin)
 	{
-		if((args[inpos+2] != NULL) && (args[inpos+1] == NULL))
+		if((args[inpos+2] != NULL) || (args[inpos+1] == NULL))
 		{
 			return 2; 
 		}
