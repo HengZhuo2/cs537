@@ -509,11 +509,11 @@ int main(int argc, char *argv[])
 		  	sid ++;
 		  	// nextcmd = 1;
 		}
+		free(args);
 	}
 
 	//exit cmd called
 	//check all process done
-	free(args);
 	free(cmd);
 	return 0;
 }
