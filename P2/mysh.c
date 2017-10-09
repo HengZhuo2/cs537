@@ -328,6 +328,9 @@ int execute(char **args)
 					waitpid(pid,&status,WUNTRACED);
 					waitpid(pid2,&status,WUNTRACED);
 				}while(!WIFEXITED(status) && !WIFSIGNALED(status));
+
+				free(cmd1);
+				free(cmd2);
 	    	}
 	    }
 	}
@@ -406,14 +409,7 @@ int launch(char **args)
 	{
 		if(strcmp(args[0], buildin_str[i]) == 0)
 		{
-		  	// if(cmd_check(args) != 0)
-		  	// {
-		  	// 	return 2;
-		  	// }
-		  	// else
-		  	// {
-		  		return(*buildin[i])(args);
-		  	// }
+		  	return(*buildin[i])(args);
 		}
 	}
 
@@ -476,13 +472,6 @@ int main(int argc, char *argv[])
 			continue;
 		}
 
-
-		// if( strcmp(cmd,"\n") == 0)
-		// {
-		// 	// printf("nothing happened\n");
-		// 	continue;
-		// }
-
 		// printf("cmd is %s", cmd);
 		//parse command
 		args = parse(cmd);
@@ -510,7 +499,6 @@ int main(int argc, char *argv[])
 		{
 			run = 0;
 			// printf("exit here1\n");
-			// printf("exit here2\n");
 			killjobs();
 		  	exit(0);
 		  	// break;
